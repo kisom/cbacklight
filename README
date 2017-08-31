@@ -1,0 +1,24 @@
+cbacklight
+
+I have an Acer C720 Chromebook for which xbacklight[1] doesn't work,
+so I wrote an alternative. This was meant to be a chance to practice
+Rust (in fact, I forgot I'd written the same thing in C[2] five years
+ago). It uses a hardcoded backlight directory, though; the C version
+guess at this.
+
+It can be built and installed with
+
+   make && sudo make install
+
+which will install to /usr/local. It can also be built using
+
+      cargo build [--release]
+
+TODO:
+  + read sysfs backlight directory to guess at the actual backlight
+    files
+  + improve the installer (DESTDIR, etc)
+
+[1] https://cgit.freedesktop.org/xorg/app/xbacklight
+[2] https://github.com/kisom/consbri
+

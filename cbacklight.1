@@ -1,0 +1,28 @@
+.Dd August 30, 2017
+.Dt CBACKLIGHT 1
+.Os
+.Sh NAME
+.Nm cbacklight
+.Nd set the backlight on a Chromebook
+.Sh SYNOPSIS
+.Nm cbacklight
+.Op Fl h
+.Op Ar percent
+.Sh DESCRIPTION
+cbacklight sets the backlight on my Acer C720 Chromebook running
+Debian using the sysfs backlight class directly.
+.
+If called with no arguments, it will print the current backlight
+setting as a percentage of full brightness. If the brightness
+percentage is passed on as an argument, it will attempt to set the
+backlight. Note that root is required to do so.
+.Sh EXIT STATUS
+.Nm
+exits with code zero on success and non-zero on failure.
+.Sh AUTHORS
+.Nm
+was written by
+.An Kyle Isom Aq Mt kyle@imap.cc .
+.Sh BUGS
+Please report all bugs to the author.
+
