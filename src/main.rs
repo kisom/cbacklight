@@ -6,6 +6,8 @@ use std::io::Write;
 use std::path::PathBuf;
 
 const BACKLIGHT_PATH: &str = "/sys/class/backlight/intel_backlight";
+const BRIGHTNESS: &str = "brightness";
+const MAX_BRIGHTNESS: &str = "max_brightness";
 const VERSION: &str = "1.0.0";
     
 fn usage(code: i32) {
@@ -48,16 +50,16 @@ fn read_value(path: &str) -> u16 {
 fn write_value(val: u16) {
     let valstr = format!("{}\n", val);
 
-    let max_backlight_path = get_path("max_backlight");
+    let max_backlight_path = get_path(BRIGHTNESS);
     let mut f_backlight = File::create(&max_backlight_path).unwrap();
     f_backlight.write_all(valstr.as_bytes()).unwrap();
 }
 
 fn show_brightness() {
-    let max_backlight_path = get_path("max_backlight");
+    let max_backlight_path = get_path(MAX_BRIGHTNESS);
     let max = read_value(&max_backlight_path);
 
-    let backlight_path = get_path("backlight");
+    let backlight_path = get_path(BRIGHTNESS);
     let current = read_value(&backlight_path);
     
     println!("{}%", backlight_to_percent(current, max));
@@ -68,7 +70,7 @@ fn set_brightness(percent: String) {
         usage(0);
     }
 
-    let max_backlight_path = get_path("max_backlight");
+    let max_backlight_path = get_path(MAX_BRIGHTNESS);
     let max = read_value(&max_backlight_path);
     let current: u16 = backlight_from_percent(str::parse(&percent).unwrap(), max);
     write_value(current);
